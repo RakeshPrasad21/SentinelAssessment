@@ -15,6 +15,13 @@
         "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
       }
     },
+    "workbookSourceId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The id of resource instance to which the workbook will be associated"
+      }
+    },
     "workbookId": {
       "type": "string",
       "defaultValue": "[newGuid()]",
@@ -134,7 +141,8 @@
                 "typeSettings": {
                   "additionalResourceOptions": []
                 },
-                "jsonData": "[[{ \"value\": \"Yes\", \"label\": \"Yes\"},\r\n {\"value\": \"No\", \"label\": \"No\", \"selected\":true }]"
+                "jsonData": "[[{ \"value\": \"Yes\", \"label\": \"Yes\"},\r\n {\"value\": \"No\", \"label\": \"No\", \"selected\":true }]",
+                "value": "Yes"
               },
               {
                 "id": "65256d7a-2004-44e8-a943-1f489beb4e00",
@@ -205,7 +213,7 @@
         {
           "type": 1,
           "content": {
-            "json": "### Help\r\nSelect **Subscription**, **Workspace** from the drop-down above.\r\nThe workbook will display details according to your selections.",
+            "json": "### Help\r\nSelect **Subscription**, **Workspace** and **TimeRange** from the drop-down above.\r\nThe workbook will display details according to your selections.",
             "style": "info"
           },
           "conditionalVisibility": {
@@ -267,10 +275,31 @@
               {
                 "type": 1,
                 "content": {
-                  "json": "#### Below widget only displays a limit set of supported connectors.\r\n#### Please refer the workspace status for a detailed data source view.",
+                  "json": "#### This workbook contains\r\n\r\n<ol>\r\n  <li> Overview\r\n    <ul>\r\n\t  <li>View Permissions for the workspace</li>\r\n      <li>Enabled Data Connectors</li>\r\n      <li>Workspace Status</li>\r\n      <li>Alerts across Product Name & Provider Name</li>\r\n      <li>Created Analytic Rules</li>\r\n      <li>Created WatchLists</li>\r\n      <li>Saved Workbooks</li>\r\n      <li>Saved Searches</li>\r\n      <li>Workspace Functions</li>\r\n      <li>IntelligencePacks</li>\r\n     </ul>\r\n  </li>\r\n  <li>Schema Details\r\n    <ul>\r\n      <li>Supported Operations</li>\r\n      <li>Table Details</li>\r\n    </ul>\r\n  </li>\r\n  <li>Retention\r\n      <ul>\r\n       <li>Workspace Details</li>\r\n       <li>Table based retention</li>\r\n      </ul>\r\n  </li>\r\n  <li>Agents Info\r\n    <ul>\r\n      <li>List of Computer checkin</li>\r\n      <li>Data sources for Windows Event Logs</li>\r\n      <li>Data sources for Windows Performance Counter Logs Logs</li>\r\n      <li>Data sources for Windows Performance Counter Logs Logs</li>\r\n      <li>Data sources for LinuxPerformanceCollection Logs</li>\r\n    </ul>\r\n  </li>\r\n</ol>\r\n\r\n#### Below widget only displays a limit set of supported connectors.\r\n#### Please refer the workspace status for a detailed data source view.",
                   "style": "upsell"
                 },
                 "name": "text - 9"
+              },
+              {
+                "type": 11,
+                "content": {
+                  "version": "LinkItem/1.0",
+                  "style": "list",
+                  "links": [
+                    {
+                      "id": "10c9b2c5-8ae9-4c6c-8129-924b663d7362",
+                      "cellValue": "/subscriptions/{Subscription:id}/resourceGroups/{InternalRG:name}/providers/Microsoft.OperationalInsights/workspaces/{Workspace:name}",
+                      "linkTarget": "Resource",
+                      "linkLabel": "View Permissions",
+                      "subTarget": "users",
+                      "preText": "Click this link to ",
+                      "postText": "for the {Workspace:name}",
+                      "style": "primary",
+                      "linkIsContextBlade": true
+                    }
+                  ]
+                },
+                "name": "links - 10"
               },
               {
                 "type": 3,
@@ -1049,44 +1078,6 @@
           "content": {
             "version": "NotebookGroup/1.0",
             "groupType": "editable",
-            "items": [
-              {
-                "type": 3,
-                "content": {
-                  "version": "KqlItem/1.0",
-                  "query": "{\"version\":\"ARMEndpoint/1.0\",\"data\":null,\"headers\":[],\"method\":\"GET\",\"path\":\"/subscriptions/{Subscription:id}/resourceGroups/{InternalRG:value}/providers/Microsoft.Authorization/roleAssignments?api-version=2015-07-01\",\"urlParams\":[],\"batchDisabled\":false,\"transformers\":null}",
-                  "size": 0,
-                  "title": "RBAC for the {Workspace:name}",
-                  "queryType": 12
-                },
-                "name": "query - 0"
-              },
-              {
-                "type": 3,
-                "content": {
-                  "version": "KqlItem/1.0",
-                  "query": "{\"version\":\"1.0.0\",\"content\":\" [\\\"microsoft.insights/workbooks/read\\\",\\\"Microsoft.Support/*\\\"]\",\"operator\":\"and\"}",
-                  "size": 0,
-                  "queryType": 15,
-                  "resourceType": "microsoft.operationalinsights/workspaces"
-                },
-                "name": "query - 1"
-              }
-            ]
-          },
-          "conditionalVisibility": {
-            "parameterName": "selectedTab",
-            "comparison": "isEqualTo",
-            "value": "RBAC"
-          },
-          "name": "group - 7"
-        },
-        {
-          "type": 12,
-          "content": {
-            "version": "NotebookGroup/1.0",
-            "groupType": "editable",
-            "title": "Agents Info",
             "items": [
               {
                 "type": 3,
