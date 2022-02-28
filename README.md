@@ -6,6 +6,7 @@ This solution contains 4 tabs
 <ol>
   <li>Overview
     <ul>
+      <li>View Permissions for the workspace</li>
       <li>Enabled Data Connectors</li>
       <li>Workspace Status</li>
       <li>Alerts across Product Name & Provider Name</li>
