@@ -294,8 +294,7 @@
                       "subTarget": "users",
                       "preText": "Click this link to ",
                       "postText": "for the {Workspace:name}",
-                      "style": "primary",
-                      "linkIsContextBlade": true
+                      "style": "primary"
                     }
                   ]
                 },
