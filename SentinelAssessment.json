@@ -7,16 +7,15 @@
       "metadata": {
         "description": "The friendly name for the workbook that is used in the Gallery or Saved List.  This name must be unique within a resource group."
       }
-    }
     },
-    "workbookId": {
+	    "workbookId": {
       "type": "string",
       "defaultValue": "[newGuid()]",
       "metadata": {
         "description": "The unique guid for this workbook instance"
       }
     }
-  },
+    },
   "variables": {
     "workbookType": "sentinel",
     "workbookContent": {
