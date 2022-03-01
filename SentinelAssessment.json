@@ -8,23 +8,37 @@
         "description": "The friendly name for the workbook that is used in the Gallery or Saved List.  This name must be unique within a resource group."
       }
     },
-    "workSpaceName": {
-    "type": "string",
-    "defaultValue": "",
-    "metadata": {
-      "description": "Please enter the name of the workspace."
+    "workbookType": {
+      "type": "string",
+      "defaultValue": "sentinel",
+      "metadata": {
+        "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
       }
-     }
+    },
+    "workbookSourceId": {
+      "type": "string",
+      "defaultValue": "/subscriptions/ce4590de-b52b-4c26-8232-37b0a5676300/resourcegroups/siemens-h-dev/providers/microsoft.operationalinsights/workspaces/siemens-h-law-sentinel-dev",
+      "metadata": {
+        "description": "The id of resource instance to which the workbook will be associated"
+      }
+    },
+    "workbookId": {
+      "type": "string",
+      "defaultValue": "[newGuid()]",
+      "metadata": {
+        "description": "The unique guid for this workbook instance"
+      }
+    }
   },
   "variables": {
-    "workbookType": "sentinel",
     "workbookContent": {
       "version": "Notebook/1.0",
       "items": [
         {
           "type": 1,
           "content": {
-            "json": "# Microsoft Sentinel Assessment"
+            "json": "# Microsoft Sentinel Assessment \r\n<hr/> \r\n### An Offerring from \r\n<hr/> \r\n<img height=100px width=200px src=\"https://raw.githubusercontent.com/os-securityservices/SentinelAssessment/main/OS_Microsoft.svg\">",
+            "style": "info"
           },
           "name": "Page header"
         },
@@ -32,6 +46,9 @@
           "type": 9,
           "content": {
             "version": "KqlParameterItem/1.0",
+            "crossComponentResources": [
+              "value::all"
+            ],
             "parameters": [
               {
                 "id": "26d2fea7-3646-4993-b79f-6722f9ef8ddb",
@@ -85,7 +102,7 @@
                 "name": "Workspace",
                 "type": 5,
                 "isRequired": true,
-                "query": "where type =~ \"microsoft.operationalinsights/workspaces\"\r\n| project subscriptionId,id,name\r\n| where '{Subscription}' has subscriptionId\r\n| project value =id, label = name, selected = iff(name =~ '{InternalWSs}', true, false)",
+                "query": "where type =~ \"microsoft.operationalinsights/workspaces\"\r\n| project subscriptionId,id,name\r\n| where '{Subscription}' has subscriptionId\r\n| project value =id, label = name, selected = false",
                 "crossComponentResources": [
                   "value::all"
                 ],
@@ -190,8 +207,8 @@
               }
             ],
             "style": "pills",
-            "queryType": 0,
-            "resourceType": "microsoft.operationalinsights/workspaces"
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
           },
           "customWidth": "100",
           "name": "WSSelector"
@@ -261,7 +278,7 @@
               {
                 "type": 1,
                 "content": {
-                  "json": "#### This workbook contains\r\n\r\n<ol>\r\n  <li> Overview\r\n    <ul>\r\n\t  <li>View Permissions for the workspace</li>\r\n      <li>Enabled Data Connectors</li>\r\n      <li>Workspace Status</li>\r\n      <li>Alerts across Product Name & Provider Name</li>\r\n      <li>Created Analytic Rules</li>\r\n      <li>Created WatchLists</li>\r\n      <li>Saved Workbooks</li>\r\n      <li>Saved Searches</li>\r\n      <li>Workspace Functions</li>\r\n      <li>IntelligencePacks</li>\r\n     </ul>\r\n  </li>\r\n  <li>Schema Details\r\n    <ul>\r\n      <li>Supported Operations</li>\r\n      <li>Table Details</li>\r\n    </ul>\r\n  </li>\r\n  <li>Retention\r\n      <ul>\r\n       <li>Workspace Details</li>\r\n       <li>Table based retention</li>\r\n      </ul>\r\n  </li>\r\n  <li>Agents Info\r\n    <ul>\r\n      <li>List of Computer checkin</li>\r\n      <li>Data sources for Windows Event Logs</li>\r\n      <li>Data sources for Windows Performance Counter Logs Logs</li>\r\n      <li>Data sources for Windows Performance Counter Logs Logs</li>\r\n      <li>Data sources for LinuxPerformanceCollection Logs</li>\r\n    </ul>\r\n  </li>\r\n</ol>\r\n\r\n#### Below widget only displays a limit set of supported connectors.\r\n#### Please refer the workspace status for a detailed data source view.",
+                  "json": "#### This workbook contains\r\n\r\n| Overview | Schema Details | Retention | Agents Info |\r\n|---|---|---|---|\r\n| View Permissions for the workspace | Supported Operations | Workspace Details | List of Computer checkin |\r\n| Enabled Data Connectors | Table Details | Table based retention | Data sources for Windows Event Logs |\r\n| Workspace Status | | | Data sources for Windows Performance Counter Logs Logs |\r\n| Alerts across Product Name & Provider Name | | | Data sources for LinuxPerformanceCollection Logs |\r\n| Created Analytic Rules | | | |\r\n| Created WatchLists | | | |\r\n| Saved Workbooks | | | |\r\n| Workspace Functions | | | |\r\n| IntelligencePacks | | | | |\r\n\r\n#### Below widget only displays a limit set of supported connectors.\r\n#### Please refer the workspace status for a detailed data source view.",
                   "style": "upsell"
                 },
                 "name": "text - 9"
@@ -1136,12 +1153,15 @@
         }
       ],
       "isLocked": false,
+      "fallbackResourceIds": [
+        "/subscriptions/ce4590de-b52b-4c26-8232-37b0a5676300/resourcegroups/siemens-h-dev/providers/microsoft.operationalinsights/workspaces/siemens-h-law-sentinel-dev"
+      ],
       "fromTemplateId": "sentinel-UserWorkbook"
     }
   },
   "resources": [
     {
-      "name": "[newGuid()]",
+      "name": "[parameters('workbookId')]",
       "type": "microsoft.insights/workbooks",
       "location": "[resourceGroup().location]",
       "apiVersion": "2021-03-08",
@@ -1151,15 +1171,15 @@
         "displayName": "[parameters('workbookDisplayName')]",
         "serializedData": "[string(variables('workbookContent'))]",
         "version": "1.0",
-        "sourceId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workSpaceName'))]",
-        "category": "[string(variables('workbookType'))]"
+        "sourceId": "[parameters('workbookSourceId')]",
+        "category": "[parameters('workbookType')]"
       }
     }
   ],
   "outputs": {
     "workbookId": {
       "type": "string",
-      "value": "[resourceId( 'microsoft.insights/workbooks', [newGuid()])]"
+      "value": "[resourceId( 'microsoft.insights/workbooks', parameters('workbookId'))]"
     }
   },
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"
