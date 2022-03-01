@@ -12,9 +12,10 @@
     "type": "string",
     "defaultValue": "",
     "metadata": {
-      "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
+      "description": "Please enter the name of the workspace."
       }
-     },
+     }
+  },
   "variables": {
     "workbookType": "sentinel",
     "workbookContent": {
@@ -23,7 +24,7 @@
         {
           "type": 1,
           "content": {
-            "json": "# Microsoft Sentinel Asset Inventory"
+            "json": "# Microsoft Sentinel Assessment"
           },
           "name": "Page header"
         },
