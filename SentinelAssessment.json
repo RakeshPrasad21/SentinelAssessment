@@ -8,22 +8,15 @@
         "description": "The friendly name for the workbook that is used in the Gallery or Saved List.  This name must be unique within a resource group."
       }
     },
-    "workbookType": {
-      "type": "string",
-      "defaultValue": "sentinel",
-      "metadata": {
-        "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
+    "workSpaceName": {
+    "type": "string",
+    "defaultValue": "",
+    "metadata": {
+      "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
       }
-    },
-    "workbookId": {
-      "type": "string",
-      "defaultValue": "[newGuid()]",
-      "metadata": {
-        "description": "The unique guid for this workbook instance"
-      }
-    }
-  },
+     },
   "variables": {
+    "workbookType": "sentinel",
     "workbookContent": {
       "version": "Notebook/1.0",
       "items": [
@@ -58,7 +51,6 @@
                 "type": 1,
                 "isRequired": true,
                 "query": "SecurityIncident \n| where TimeGenerated > ago(90d)\n| parse IncidentUrl with * \"/workspaces/\" Workspace \"/\" *\n| project Workspace",
-                "value": "siemens-h-law-sentinel-dev, siemens-h-law-sentinel-dev",
                 "isHiddenWhenLocked": true,
                 "timeContext": {
                   "durationMs": 2592000000
@@ -96,7 +88,7 @@
                 "crossComponentResources": [
                   "value::all"
                 ],
-                "value": "/subscriptions/ce4590de-b52b-4c26-8232-37b0a5676300/resourceGroups/Siemens-H-Dev/providers/Microsoft.OperationalInsights/workspaces/siemens-h-law-sentinel-dev",
+                "value": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workSpaceName'))]",
                 "typeSettings": {
                   "additionalResourceOptions": [],
                   "showDefault": false
@@ -1158,15 +1150,15 @@
         "displayName": "[parameters('workbookDisplayName')]",
         "serializedData": "[string(variables('workbookContent'))]",
         "version": "1.0",
-        "sourceId": "/subscriptions/{Subscription:id}/resourceGroups/{InternalRG:name}/providers/Microsoft.OperationalInsights/workspaces/{Workspace:name}",
-        "category": "[parameters('workbookType')]"
+        "sourceId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workSpaceName'))]",
+        "category": "[string(variables('workbookType'))]"
       }
     }
   ],
   "outputs": {
     "workbookId": {
       "type": "string",
-      "value": "[resourceId( 'microsoft.insights/workbooks', parameters('workbookId'))]"
+      "value": "[resourceId( 'microsoft.insights/workbooks', [newGuid()])]"
     }
   },
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"
