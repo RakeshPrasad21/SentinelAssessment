@@ -60,7 +60,7 @@ Wait for the successful completion of the deployment.
 
 #### Step 5
 
-Post completion of the deploymemt navigate to Sentinel Workbook section and search the newly deployed workbook under My Workbooks section
+Post completion of the deployment navigate to Sentinel Workbook section and search the newly deployed workbook under My Workbooks section
 
 ![image](https://user-images.githubusercontent.com/82818599/156139585-13e178aa-c50b-40ac-b0ac-123a515e06d8.png)
 
