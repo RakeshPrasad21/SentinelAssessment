@@ -7,20 +7,7 @@
       "metadata": {
         "description": "The friendly name for the workbook that is used in the Gallery or Saved List.  This name must be unique within a resource group."
       }
-    },
-    "workbookType": {
-      "type": "string",
-      "defaultValue": "sentinel",
-      "metadata": {
-        "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
-      }
-    },
-    "workbookSourceId": {
-      "type": "string",
-      "defaultValue": "/subscriptions/ce4590de-b52b-4c26-8232-37b0a5676300/resourcegroups/siemens-h-dev/providers/microsoft.operationalinsights/workspaces/siemens-h-law-sentinel-dev",
-      "metadata": {
-        "description": "The id of resource instance to which the workbook will be associated"
-      }
+    }
     },
     "workbookId": {
       "type": "string",
@@ -31,6 +18,7 @@
     }
   },
   "variables": {
+    "workbookType": "sentinel",
     "workbookContent": {
       "version": "Notebook/1.0",
       "items": [
@@ -1171,8 +1159,8 @@
         "displayName": "[parameters('workbookDisplayName')]",
         "serializedData": "[string(variables('workbookContent'))]",
         "version": "1.0",
-        "sourceId": "[parameters('workbookSourceId')]",
-        "category": "[parameters('workbookType')]"
+        "sourceId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workSpaceName'))]",
+        "category": "[string(variables('workbookType'))]"
       }
     }
   ],
