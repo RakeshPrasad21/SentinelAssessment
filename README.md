@@ -23,6 +23,13 @@ An existing Sentinel Installation.
 
 * Version 1.0 - Microsoft Sentinel Assessment  
 
+## Offered by 
+<img height=100px width=200px src="https://raw.githubusercontent.com/os-securityservices/SentinelAssessment/main/OS_Microsoft.svg">
+
+## Key Contacts
+
+<jpearse@open-systems.com>
+
 ## Getting started
 
 The solution is ready to deploy and below has the detailed steps to deploy
