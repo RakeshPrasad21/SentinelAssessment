@@ -46,16 +46,13 @@ Hold Control Button and click deploy to Azure button to observe the deployment i
 
 Fill the necessary infomation as per the screenshot below and click on **Review + Create** 
 
-![image](https://user-images.githubusercontent.com/82818599/156138557-45533559-0126-41b3-b217-3b35f83d1f2e.png)
+![image](https://user-images.githubusercontent.com/82818599/156211082-72211c28-f71a-45af-a0ae-822de0924bcb.png)
 
-```
-/subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{Workspace Name}
-```
 #### Step 3
 
 Click on Create to start the deployment
 
-![image](https://user-images.githubusercontent.com/82818599/156139187-9426dc6a-810c-4b79-9b2c-0ea0ac63831d.png)
+![image](https://user-images.githubusercontent.com/82818599/156211344-d9419e86-aae1-42e6-b136-3d11103425d9.png)
 
 #### Step 4
 
@@ -71,7 +68,7 @@ Post completion of the deploymemt navigate to Sentinel Workbook section and sear
 
 Click on View saved workbook to open the deployed workbook and it should open the workbook similar to the following
 
-![image](https://user-images.githubusercontent.com/82818599/156140094-6f4b82f9-02c0-425d-83f9-7e8f8e25d4a2.png)
+![image](https://user-images.githubusercontent.com/82818599/156211613-33a971ef-60c3-4db5-b282-e80ffbb3a44a.png)
 
 Please navigate to each section to get more details mentioned above.
 
