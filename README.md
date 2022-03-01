@@ -1,7 +1,7 @@
-# SentinelAssessment
+# Welcome to Microsoft Sentinel Assessment
 
-This is solution to evaluate your current Microsoft Sentinel Installation.
-This solution contains 4 tabs 
+## Introduction
+This solution is to evaluate your current Microsoft Sentinel Installation and it contains the following:
 
 |Overview|Schema Details|Retention|Agents Info|
 |---|---|---|---|
@@ -15,8 +15,17 @@ This solution contains 4 tabs
 |Workspace Functions|||
 |IntelligencePacks|||
 
+## Prerequisites
+
+An existing Sentinel Installation.
  
-This Soulution is available for deployment through this page.
+## Last release notes
+
+* Version 1.0 - Microsoft Sentinel Assessment  
+
+## Getting started
+
+The solution is ready to deploy and below has the detailed steps to deploy
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fos-securityservices%2FSentinelAssessment%2Fmain%2FSentinelAssessment.json)
 
