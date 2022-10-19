@@ -13,7 +13,7 @@
         "defaultValue": ""
       },
       "scalingChallenges": {
-        "type": "string",
+        "type": "bool",
         "defaultValue": ""
       },
       "CustomerName": {
