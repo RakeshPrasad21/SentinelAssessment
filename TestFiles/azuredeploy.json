@@ -1,0 +1,89 @@
+{
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "workbookDisplayName": {
+        "type": "string"
+      },
+      "workbookSourceId": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().id]"
+      },
+      "workbookId": {
+        "type": "string",
+        "defaultValue": "[newGuid()]"
+      }
+    },
+    "variables": {
+      // serializedData from original exported Azure Resource Manager template
+      "serializedData": "{\"version\":\"Notebook/1.0\",\"items\":[{\"type\":1,\"content\":{\"json\":\"Replce 1\"},\"name\":\"text - 0\"},{\"type\":1,\"content\":{\"json\":\"Replce 2\"},\"name\":\"text - 1\"},{\"type\":1,\"content\":{\"json\":\"Replace 3\"},\"name\":\"text - 2\"}],\"isLocked\":false,\"fallbackResourceIds\":[\"Azure Monitor\"]}",
+  
+  
+  
+     // parse the original into a JSON object, so that it can be manipulated
+      "parsedData": "[json(variables('serializedData'))]",
+  
+  
+  
+     // create new JSON objects that represent only the items/properties to be modified
+      "updatedContent1": {
+        "content":{
+          "json": "[concat('Number 1 replaced \"', subscription().displayName, '\"')]"
+        }
+      },
+      "updatedContent2": {
+        "content": {
+          "json": "[concat('Number 2 replaced \"', subscription().displayName, '\"')]"
+        }
+      },
+      "updatedContent3": {
+        "content": {
+          "json": "[concat('Number 3 replaced \"', subscription().displayName, '\"')]"
+        }
+      },
+      // the union function applies the updates to the original data
+      "updatedItems": [
+        "[union(variables('parsedData')['items'][0], variables('updatedContent1'))]",
+        "[union(variables('parsedData')['items'][1], variables('updatedContent2'))]",
+        "[union(variables('parsedData')['items'][2], variables('updatedContent3'))]"
+      ],
+  
+  
+  
+     // copy to a new workbook object, with the updated items
+      "updatedWorkbookData": {
+        "version": "[variables('parsedData')['version']]",
+        "items": "[variables('updatedItems')]",
+        "isLocked": "[variables('parsedData')['isLocked']]",
+        "fallbackResourceIds": ["[parameters('workbookSourceId')]"]
+      },
+  
+  
+  
+     // convert back to an encoded string
+      "reserializedData": "[string(variables('updatedWorkbookData'))]"
+    },
+    "resources": [
+      {
+        "name": "[parameters('workbookId')]",
+        "type": "microsoft.insights/workbooks",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2018-06-17-preview",
+        "dependsOn": [],
+        "kind": "shared",
+        "properties": {
+          "displayName": "[parameters('workbookDisplayName')]",
+          "serializedData": "[variables('reserializedData')]",
+          "version": "1.0",
+          "sourceId": "[parameters('workbookSourceId')]",
+          "category": "workbook"
+        }
+      }
+    ],
+    "outputs": {
+      "workbookId": {
+        "type": "string",
+        "value": "[resourceId( 'microsoft.insights/workbooks', parameters('workbookId'))]"
+      }
+    },
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"
+  }
