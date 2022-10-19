@@ -17,7 +17,7 @@
         "defaultValue": ""
       },
       "CustomerName": {
-        "type": "string",
+        "type": "array",
         "defaultValue": ""
       },
       "location": {
