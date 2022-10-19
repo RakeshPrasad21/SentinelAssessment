@@ -518,7 +518,10 @@
             "location": "[location()]",
             "threatresponseseverity" :"[steps('whymigrate').section1.dropDown1]",
             "scalingChallenges" :"[steps('whymigrate').section2.legalAccept]",
-            "CustomerName": "[steps('planyourmigration').section1.UseCase]"
+            "CustomerName": "[steps('planyourmigration').section1.UseCase]",
+            "workbookDisplayName" : "MigrationAssessment",
+            "workbookSourceId":""
+
         }
     }
 }
