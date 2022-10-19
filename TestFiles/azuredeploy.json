@@ -8,9 +8,21 @@
         "type": "string",
         "defaultValue": "[resourceGroup().id]"
       },
-      "workbookId": {
+      "threatresponseseverity": {
         "type": "string",
-        "defaultValue": "[newGuid()]"
+        "defaultValue": ""
+      },
+      "scalingChallenges": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "CustomerName": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "location": {
+        "type": "string",
+        "defaultValue": ""
       }
     },
     "variables": {
