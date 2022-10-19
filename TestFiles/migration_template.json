@@ -1,0 +1,524 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+    "handler": "Microsoft.Azure.CreateUIDef",
+    "version": "0.1.2-preview",
+    "parameters": {
+        "config": {
+            "isWizard": true,
+            "basics": { 
+            "description": "**Plan your migration to Microsoft Sentinel**<br><br>Security operations center (SOC) teams use centralized security information and event management (SIEM) and security orchestration, automation, and response (SOAR) solutions to protect their increasingly decentralized digital estate. While legacy SIEMs can maintain good coverage of on-premises assets, on-premises architectures may have insufficient coverage for cloud assets, such as in Azure, Microsoft 365, AWS, or Google Cloud Platform (GCP). In contrast, Microsoft Sentinel can ingest data from both on-premises and cloud assets, ensuring coverage over the entire estate.            This article discusses the reasons for migrating from a legacy SIEM, and describes how to plan out the different phases of your migration."
+            }
+        },
+        "basics": [
+			{
+                "name": "section1",
+                "type": "Microsoft.Common.Section",
+                "label": "What is Microsoft Sentinel",
+                "elements": [
+                    {
+                "name": "textBlock1",
+                "type": "Microsoft.Common.TextBlock",
+                "visible": true,
+                "options": {
+                    "text": "Microsoft Sentinel is a scalable, cloud-native, security information and event management (SIEM) and security orchestration, automation, and response (SOAR) solution. Microsoft Sentinel delivers intelligent security analytics and threat intelligence across the enterprise. Microsoft Sentinel provides a single solution for attack detection, threat visibility, proactive hunting, and threat response. Learn more about Microsoft Sentinel."
+                }
+            }
+                ],
+                "visible": true
+            },
+            {
+                "name": "section2",
+                "type": "Microsoft.Common.Section",
+                "label": "Please specify your current SIEM tool in Use ",
+                "elements": [
+                    {
+                        "name": "dropDown2",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Please select ",
+                        "placeholder": "",
+                        "defaultValue": "None",
+                        "multiselect": false,
+                        "multiLine": true,
+                        "toolTip": "",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                   "label": "None",
+                                    "description": "This selection confirms you have full understsnding of your Data , Use Cases & Orchestration.",
+                                    "value": "None"
+                                },
+                                {
+                                    "label": "ArcSight",
+                                    "description": "•Migrate detection rules<br>•Migrate SOAR automation<br>• Export historical data",
+                                    "value": "ArcSight"
+                                },
+                                {
+                                    "label": "Splunk",
+                                    "description": "•Migrate detection rules<br>•Migrate SOAR automation<br>• Export historical data",
+                                    "value": "Splunk"
+                                },
+                                {
+                                    "label": "QRadar",
+                                    "description": "•Migrate detection rules<br>•Migrate SOAR automation<br>• Export historical data",
+                                    "value": "QRadar"
+                                }
+                            ]
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "infoBox3",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": "[if(contains(basics('section2').dropDown2,'None'), false, true)]",
+                        "options": {
+                            "icon": "Info",
+                            "text": "[concat('You have chosen your current SIEM as ',basics('section2').dropDown2, ' and planning to migrate to Microsoft Setinel. <ul>Please refer these for <ul><li><a href=https://abc.com>Migrate detection rules</a></li><li><a href=https://abc.com>Migrate SOAR automation</a></li><li><a href=https://abc.com>Export historical data</a></li></ul>')]"
+                        }
+                    }
+                ],
+                "visible": true
+            }
+        ],
+        "steps": [
+            {
+                "name": "whymigrate",
+                "label": "Why migrate from a legacy SIEM",
+                "elements": [
+                    {
+                        "name": "section1",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Slow response to threats",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "Legacy SIEMs use correlation rules, which are difficult to maintain and ineffective for identifying emerging threats. In addition, SOC analysts are faced with large amounts of false positives, many alerts from many different security components, and increasingly high volumes of logs. Analyzing this data slows down SOC teams in their efforts to respond to critical threats in the environment."
+                                }
+                            },
+                            {
+                                "name": "dropDown1",
+                                "type": "Microsoft.Common.DropDown",
+                                "label": "Please select the right severity",
+                                "placeholder": "Please Choose..",
+                                "toolTip": "",
+                                "constraints": {
+                                    "allowedValues": [
+                                        {
+                                            "label": "None",
+                                            "value": "💡"
+                                        },
+                                        {
+                                            "label": "High",
+                                            "value": "❌"
+                                        },
+                                        {
+                                            "label": "Medium",
+                                            "value": "⚠️"
+                                        },
+                                        {
+                                            "label": "Low",
+                                            "value": "ℹ️"
+                                        }
+                                    ]
+                                },
+                                "visible": true
+                            }
+
+                                    ],
+                        "visible": true
+                    }, 
+                    {
+                        "name": "section2",
+                        "type": "Microsoft.Common.Section",
+                        "label": "❓ Scaling challenges",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "As data ingestion rates grow, SOC teams are challenged with scaling their SIEM. Instead of focusing on protecting the organization, SOC teams must invest in infrastructure setup and maintenance, and are bound by storage or query limits."
+                                }
+                            },
+                            {
+                                "name": "legalAccept",
+                                "type": "Microsoft.Common.CheckBox",
+                                "label": "Please select if applicable"
+                            }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "section3",
+                        "type": "Microsoft.Common.Section",
+                        "label": "🔥 Manual analysis and response",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "SOC teams need highly skilled analysts to manually process large amounts of alerts. SOC teams are overworked and new analysts are hard to find."
+                                }
+                        },
+                        {
+                            "name": "responsePercentage",
+                            "type": "Microsoft.Common.Slider",
+                            "min": 0,
+                            "max": 100,
+                            "label": "Automated",
+                            "subLabel": "%",
+                            "defaultValue": 0,
+                            "showStepMarkers": false,
+                            "toolTip": "Pick the percentage",
+                            "constraints": {
+                                "required": false
+                            },
+                            "visible": true
+                        }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "section4",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Complex and inefficient management",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Warning",
+                                    "text": "SOC teams typically oversee orchestration and infrastructure, manage connections between the SIEM and various data sources, and perform updates and patches. These tasks are often at the expense of critical triage and analysis."
+                                }
+                            }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "dropDown2",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Please select the grey areas",
+                        "placeholder": "",
+                        "defaultValue": "None",
+                        "multiselect": true,
+                        "multiLine": true,
+                        "toolTip": "",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "None",
+                                    "description": "This selection confirms you have full understsnding of your Data , Use Cases & Orchestration.",
+                                    "value": "None"
+                                },
+                                {
+                                    "label": "Data Collection",
+                                    "description": "If the data connection process is unknown to you, please select this option.",
+                                    "value": "Data Collection"
+                                },
+                                {
+                                    "label": "Use Case Management",
+                                    "description": "If you do not manage your SOC Use Cases Currently, please select this option.",
+                                    "value": "Use Case Management"
+                                },
+                                {
+                                    "label": "Automation Orchestration",
+                                    "description": "If you do not manage your SOC know the OrchestrationCases in place, please select this option.",
+                                    "value": "Automation Orchestration"
+                                }
+                            ]
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "section5",
+                        "type": "Microsoft.Common.Section",
+                        "label": "🔥 Do you see any specific challenges that we have not covered yet ?",
+                        "elements": [
+                    {
+                        "name": "textBox1",
+                        "type": "Microsoft.Common.TextBox",
+                        "multiLine": true,
+                        "placeholder": "",
+                        "visible": true
+                    }
+                ]
+                }
+                ]
+            },
+            {
+                "name": "planyourmigration",
+                "label": "Plan your migration",
+                "elements": [
+                    {
+                        "name": "section1",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Discover",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Identify use cases and migration priorities as part of this phase."
+                                }
+                            },
+                            {
+                                "name": "infoBox2",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "Identify and analyze your current use cases by threat, operating system, product, and so on."
+                                }
+                            },
+                            {
+                                "name": "infoBox3",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "Conduct a Crown Jewel Analysis",
+                                    "uri": "https://www.mitre.org/research/technology-transfer/technology-licensing/crown-jewels-analysis"
+                                }
+                            },
+                            {
+                                "name": "infoBox4",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "What use cases are effective? A good starting place is to look at which detections have produced results within the last year (false positive versus positive rate)."
+                                }
+                            },
+                            {
+                                "name": "infoBox4",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "What are the business priorities that affect use case migration? What are the biggest risks to your business? What type of issues put your business most at risk?"
+                                }
+                            },
+                            {
+                                "name": "infoBox5",
+                                "type": "Microsoft.Common.TextBlock",
+                                "visible": true,
+                                "options": {
+                                    "text": "Prioritize by use case characteristics"
+                                }
+                            },
+                            {
+                            "name": "UseCase",
+                            "type": "Microsoft.Common.EditableGrid",
+                            "ariaLabel": "Enter information per person",
+                            "label": "",
+                            "constraints": {
+                                "width": "Full",
+                                "rows": {
+                                    "count": {
+                                        "min": 0,
+                                        "max": 10
+                                    }
+                                },
+                                "columns": [
+                                    {
+                                        "id": "colName",
+                                        "header": "CaseName",
+                                        "width": "1fr",
+                                        "element": {
+                                            "type": "Microsoft.Common.TextBox",
+                                            "placeholder": "Full name",
+                                            "constraints": {
+                                                "required": true,
+                                                "validations": [
+                                                    {
+                                                        "regex": "^[a-z0-9A-Z]{1,30}$",
+                                                        "message": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "id": "colGender",
+                                        "header": "Severity",
+                                        "width": "1fr",
+                                        "element": {
+                                            "name": "dropDown1",
+                                            "type": "Microsoft.Common.DropDown",
+                                            "placeholder": "Select a Severity",
+                                            "constraints": {
+                                                "allowedValues": [
+                                                    {
+                                                        "label": "High",
+                                                        "value": "High"
+                                                    },
+                                                    {
+                                                        "label": "Medium",
+                                                        "value": "Medium"
+                                                    },
+                                                    {
+                                                        "label": "Low",
+                                                        "value": "Low"
+                                                    },
+                                                    {
+                                                        "label": "Informational",
+                                                        "value": "Informational"
+                                                    }
+                                                ],
+                                                "required": true
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "id": "colContactPreference",
+                                        "header": "Current State",
+                                        "width": "1fr",
+                                        "element": {
+                                            "type": "Microsoft.Common.OptionsGroup",
+                                            "constraints": {
+                                                "allowedValues": [
+                                                    {
+                                                        "label": "Operational",
+                                                        "value": "Operational"
+                                                    },
+                                                    {
+                                                        "label": "Planned",
+                                                        "value": "Planned"
+                                                    }
+                                                ],
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "section2",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Design",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Define a detailed design and architecture for your Microsoft Sentinel implementation. You'll use this information to get approval from the relevant stakeholders before you start the implementation phase."
+                                }
+                            },
+                            {
+                                "name":"sentineldeploymentoption",
+                                "type": "Microsoft.Common.OptionsGroup",
+                                "constraints": {
+                                    "allowedValues": [
+                                        {
+                                            "label": "None",
+                                            "value": "None"
+                                        },
+                                        {
+                                            "label": "Standard",
+                                            "value": "Standard"
+                                        },
+                                        {
+                                            "label": "Guided",
+                                            "value": "Guided"
+                                        }
+                                    ],
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "infoBox2",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": "[if(contains(steps('planyourmigration').section2.sentineldeploymentoption,'Standard'), true, false)]",
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Deploy Microsoft Sentinel<br> Enable MS Data Connectors <br> Enable Incident Creation Rules <br> Enable Data Collection Workbook <br>"
+                                }
+                            },
+                            {
+                                "name": "infoBox3",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": "[if(contains(steps('planyourmigration').sentineldeploymentoption,'Guided'), true, false)]",
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Will be managed by Open Systenms"
+                                }
+                            }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "section3",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Implement",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Coming Soon.."
+                                }
+                            }
+                        ],
+                        "visible": true
+                    },
+                    {
+                        "name": "section4",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Operationalize",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Coming Soon.."
+                                }
+                            }
+                        ],
+                        "visible": true
+                    }
+                ]
+            },
+            {
+                "name": "Considerations",
+                "label": "Considerations",
+                "elements": [
+                    {
+                        "name": "section1",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Slow response to threats",
+                        "elements": [
+                            {
+                                "name": "infoBox1",
+                                "type": "Microsoft.Common.InfoBox",
+                                "visible": true,
+                                "options": {
+                                    "icon": "Info",
+                                    "text": "Coming soon..."
+                                }
+                            }
+                        ],
+                        "visible": true
+                    }
+                ]
+            }
+        ],
+        "outputs": {
+            "location": "[location()]",
+            "threatresponseseverity" :"[steps('whymigrate').section1.dropDown1]",
+            "scalingChallenges" :"[steps('whymigrate').section2.legalAccept]",
+            "CustomerName": "[steps('planyourmigration').section1.UseCase]"
+        }
+    }
+}
